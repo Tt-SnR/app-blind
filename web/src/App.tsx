@@ -9,7 +9,7 @@ export default function App() {
     <Layout style={{ minHeight: '100vh' }}>
       <Header>
         <Typography.Title style={{ color: '#fff', margin: 0 }} level={4}>
-          app-blind
+          Web Blind
         </Typography.Title>
       </Header>
       <Content style={{ padding: 24 }}>
