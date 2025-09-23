@@ -1,0 +1,59 @@
+version: "3.9"
+services:
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    env_file:
+      - ./web/.env
+    depends_on:
+      - engine
+    volumes:
+      - ./web:/usr/src/app
+
+
+  engine:
+    build:
+      context: ./engine
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    env_file:
+      - ./engine/.env
+    volumes:
+      - ./engine:/usr/src/app
+    depends_on:
+      - db
+      - minio
+
+
+  db:
+    image: postgres:15
+    restart: unless-stopped
+    env_file:
+      - ./engine/.env  
+    ports:
+    - "5433:5432"
+    volumes:
+    - db_data:/var/lib/postgresql/data
+
+
+  minio:
+    image: minio/minio:latest
+    # command: server /data
+    environment:
+      MINIO_ROOT_USER: app_blind
+      MINIO_ROOT_PASSWORD: app_blind@2025
+    ports:
+    - "9000:9000"
+    - "9001:9001"
+    volumes:
+    - minio_data:/data
+    command: server /minio-image/storage --console-address :9001
+
+
+volumes:
+  db_data:
+  minio_data:
