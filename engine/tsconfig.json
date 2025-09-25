@@ -1,16 +1,19 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "NodeNext",
+    "target": "ESNext",                // ưu tiên hiện đại hơn (ESNext > ES2020)
+    "module": "NodeNext",              // hỗ trợ import/export hiện đại trong Node
+    "moduleResolution": "NodeNext",        // vẫn giữ Node-style resolution
     "strict": true,
-    "verbatimModuleSyntax": true,
+    "esModuleInterop": true,           // để import CJS dễ dàng
+    "verbatimModuleSyntax": true,      // giữ nguyên cú pháp import/export
     "skipLibCheck": true,
-    "types": [
-      "node"
-    ],
-    "jsx": "react-jsx",
-    "jsxImportSource": "hono/jsx",
-    "outDir": "./dist",
+    "resolveJsonModule": true,         // cho phép import file .json
+    "typeRoots": ["./src/types", "./node_modules/@types"],
+    "types": ["node"],                 // thêm định nghĩa Node.js
+    "jsx": "react-jsx",                // hỗ trợ JSX
+    "jsxImportSource": "hono/jsx",     // dùng Hono JSX runtime
+    "outDir": "./dist"
   },
+  "include": ["src"],
   "exclude": ["node_modules"]
 }
